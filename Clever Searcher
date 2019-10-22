@@ -1,0 +1,52 @@
+package searcher;
+
+import java.util.Arrays;
+
+public class CleverSearcher extends Searcher {
+
+    CleverSearcher(int[] array, int k) {
+        super(array, k);
+    }
+
+    @java.lang.Override
+    public int findElement() throws IndexingError {
+        int[] array = getArray();
+        int k = getIndex();
+        if (k <= 0 || k > array.length) {
+            throw new IndexingError();
+        }
+
+        int[] kArray = setUpArray(k, array);
+        kArray = sortLargest(kArray, 0);
+
+        array = Arrays.copyOfRange(array,k, array.length);
+        for(int i : array){
+            kArray = sortLargest(kArray, i);
+        }
+        return kArray[0];
+    }
+
+    public int[] setUpArray(int k, int[] array){
+        int[] tempArray = new int[k];
+        for(int i = 0; i < k; i++){
+            tempArray[i] = array[i];
+        }
+        return tempArray;
+    }
+
+    public int[] sortLargest(int[] kArray, int number){
+        if(kArray[0] < number){
+            kArray[0] = number;
+        }
+
+        for(int index = 1; index < kArray.length; index++){
+           if(kArray[index] < kArray[index - 1]){
+               int temp = kArray[index];
+               kArray[index] = kArray[index-1];
+               kArray[index-1] = temp;
+           }
+        }
+
+        return kArray;
+    }
+}
