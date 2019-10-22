@@ -1,0 +1,43 @@
+package genericMethods;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class SwapTest {
+    String[] names = {"Bob", "Bella", "Cade", "Terry", "Lee", "May"};
+    int index;
+
+    void testSwap(int valueFirst, int valueLast) throws IndexingError{
+        String nameOne = names[valueFirst];
+        String nameTwo = names[valueLast];
+        String[] result = Swap.swap(names, valueFirst, valueLast);
+        assertTrue((result[valueFirst] == nameTwo && result[valueLast] == nameOne));
+        index++;
+    }
+
+    @Test
+    void swap1and6() throws IndexingError {
+        testSwap(0, 5);
+    }
+
+    @Test
+    void swap2and5()throws IndexingError {
+        testSwap(1, 4);
+    }
+
+    @Test
+    void swap3and4()throws IndexingError {
+        testSwap(2, 3);
+    }
+
+    @Test
+    void swap2and2()throws IndexingError {
+        testSwap(2, 2);
+    }
+
+    @Test
+    void outOfRangeSwapTest()throws IndexingError {
+        testSwap(2, 3);
+    }
+}
