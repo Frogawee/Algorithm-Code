@@ -1,0 +1,20 @@
+package genericMethods;
+
+ /**
+    Created by Layla Grinney
+ **/
+public class Swap {
+
+    //Swaps the results
+    public static <T> T[] swap(T[] objects, int firstValue, int lastValue) throws IndexingError{
+        if (Math.max(firstValue, lastValue) <= 0 || Math.max(firstValue, lastValue)> objects.length) {
+            throw new IndexingError();
+        }
+
+        T objectTemp = objects[lastValue];
+        objects[lastValue] = objects[firstValue];
+        objects[firstValue] = objectTemp;
+
+        return  objects;
+    }
+}
