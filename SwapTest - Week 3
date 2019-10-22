@@ -5,15 +5,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SwapTest {
-    String[] names = {"Bob", "Bella", "Cade", "Terry", "Lee", "May"};
-    int index;
+    String[] testingValues = {"Bob", "Bella", "Cade", "Terry", "Lee", "May"};
+
 
     void testSwap(int valueFirst, int valueLast) throws IndexingError{
-        String nameOne = names[valueFirst];
-        String nameTwo = names[valueLast];
-        String[] result = Swap.swap(names, valueFirst, valueLast);
+        Object valueOne = testingValues[valueFirst];
+        Object valueTwo = testingValues[valueLast];
+        Object[] result = Swap.swap(testingValues, valueFirst, valueLast);
         assertTrue((result[valueFirst] == nameTwo && result[valueLast] == nameOne));
-        index++;
     }
 
     @Test
