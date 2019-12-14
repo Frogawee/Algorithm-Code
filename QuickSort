@@ -1,0 +1,47 @@
+package arraySorter;
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+
+public class QuickSort<T extends Comparable<? super T>> implements ArraySort<T> {
+
+    public T[] sort(T[] array) {
+        return quickSort( array,0, array.length -1);
+    }
+
+    T[] quickSort(T[] array, int begin, int end) {
+        if(begin < end) {
+            int partition = partition(array, begin, end);
+
+            quickSort(array, begin, partition - 1);
+            quickSort(array, partition + 1, end);
+        }
+        return  array;
+    }
+
+    int partition(T[] array, int begin, int end) {
+        T pivot = array[end];
+
+        int index = begin - 1;
+
+        for (int i = begin; i < end; i++) {
+            if (array[i].compareTo(pivot) < 0) {
+                index++;
+
+                T tmp = array[index];
+                array[index] = array[i];
+                array[i] = tmp;
+            }
+        }
+
+        T tmp = array[index + 1];
+        array[index + 1] = array[end];
+        array[end] = tmp;
+
+        return  index+1;
+    }
+}
