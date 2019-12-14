@@ -1,0 +1,26 @@
+package arraySorter;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+public class SelectionSort<T extends Comparable<? super T>> implements ArraySort<T> {
+
+    public T[] sort(T[] array) {
+        for (int index = 0; index < array.length - 1; index++) {
+            int searchingIndex;
+            int minIndex = index;
+
+            for(searchingIndex = index; searchingIndex < array.length; searchingIndex++){
+                if (array[minIndex].compareTo(array[searchingIndex]) > 0) {
+                    minIndex = searchingIndex;
+                }
+            }
+            
+            T tmp = array[index];
+            array[index] = array[minIndex];
+            array[minIndex] = tmp;
+        }
+
+        return array;
+    }
+}
