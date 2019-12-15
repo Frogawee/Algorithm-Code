@@ -1,0 +1,79 @@
+package stringSearcher;
+
+import java.util.ArrayList;
+
+public class BoyerMooreStringSearcher extends StringSearcher {
+    public BoyerMooreStringSearcher(char[] string) {
+        super(string);
+    }
+
+    public BoyerMooreStringSearcher(String string) {
+        super(string);
+    }
+
+    @Override
+    public int occursIn(char[] superstring) throws NotFound {
+        ArrayList<BoyerMooreTable> badMatchTable = new ArrayList<>();
+
+        for (int index = 0; index < getString().length; index++) {
+            boolean hasCharIn = false;
+
+            for(BoyerMooreTable table : badMatchTable){
+                if(table.getLetter() == getString()[index]){
+                    hasCharIn=true;
+                }
+            }
+
+            if(!hasCharIn) {
+                BoyerMooreTable entry = new BoyerMooreTable(getString()[index], Math.max(1, getString().length - index - 1));
+                badMatchTable.add(entry);
+            }
+        }
+
+        BoyerMooreTable entry = new BoyerMooreTable('*', getString().length);
+        badMatchTable.add(entry);
+
+        return compare(badMatchTable, superstring);
+    }
+
+    public int compare(ArrayList<BoyerMooreTable> badMatchTable, char[] superstring) throws NotFound{
+        int offsetIndex = 0;
+        int optimalIndex = -1;
+        int stringSize = getString().length - 1;
+
+        for(char i : superstring){
+            if(superstring[stringSize + offsetIndex] == getString()[stringSize]){
+                for (int index = 1; index < getString().length; index++) {
+                    if(superstring[stringSize + offsetIndex - index] == getString()[stringSize - index]){
+                        optimalIndex = stringSize + offsetIndex - index;
+                    }
+                    else{
+                        optimalIndex =-1;
+                        break;
+                    }
+                }
+                if(optimalIndex != -1){
+                    return optimalIndex;
+                }
+            }
+            int valueToAdd = compareValue(superstring[stringSize + offsetIndex], badMatchTable);
+            if((stringSize + offsetIndex + valueToAdd) >= superstring.length) {
+                throw new NotFound();
+            }
+            else {
+                offsetIndex += valueToAdd;
+            }
+        }
+
+        throw new NotFound();
+    }
+
+    public int compareValue(char i, ArrayList<BoyerMooreTable> badMatchTable){
+        for(BoyerMooreTable table : badMatchTable){
+            if(table.getLetter() == i){
+               return table.getValue();
+            }
+        }
+        return badMatchTable.get(badMatchTable.size() - 1).getValue();
+    }
+}
