@@ -17,8 +17,8 @@ public class QuickSort<T extends Comparable<? super T>> implements ArraySort<T> 
         if(begin < end) {
             int partition = partition(array, begin, end);
 
-            quickSort(array, begin, partition - 1);
-            quickSort(array, partition + 1, end);
+            array = quickSort(array, begin, partition - 1);
+            array = quickSort(array, partition + 1, end);
         }
         return  array;
     }
