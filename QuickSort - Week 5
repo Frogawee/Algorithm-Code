@@ -37,11 +37,12 @@ public class QuickSort<T extends Comparable<? super T>> implements ArraySort<T> 
                 array[i] = tmp;
             }
         }
-
-        T tmp = array[index + 1];
-        array[index + 1] = array[end];
+        
+        int newIndex = index + 1;
+        T tmp = array[newIndex];
+        array[newIndex] = array[end];
         array[end] = tmp;
 
-        return  index+1;
+        return  newIndex;
     }
 }
