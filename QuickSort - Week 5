@@ -13,22 +13,22 @@ public class QuickSort<T extends Comparable<? super T>> implements ArraySort<T> 
         return quickSort( array,0, array.length -1);
     }
 
-    T[] quickSort(T[] array, int begin, int end) {
-        if(begin < end) {
-            int partition = partition(array, begin, end);
+    T[] quickSort(T[] array, int startPoint, int endPoint) {
+        if(startPoint < endPoint) {
+            int partition = partition(array, startPoint, endPoint);
 
-            array = quickSort(array, begin, partition - 1);
-            array = quickSort(array, partition + 1, end);
+            array = quickSort(array, startPoint, partition - 1);
+            array = quickSort(array, partition + 1, endPoint);
         }
         return  array;
     }
 
-    int partition(T[] array, int begin, int end) {
-        T pivot = array[end];
+    int partition(T[] array, int startPoint, int endPoint) {
+        T pivot = array[endPoint];
 
-        int index = begin - 1;
+        int index = startPoint - 1;
 
-        for (int i = begin; i < end; i++) {
+        for (int i = startPoint; i < endPoint; i++) {
             if (array[i].compareTo(pivot) < 0) {
                 index++;
 
@@ -37,11 +37,11 @@ public class QuickSort<T extends Comparable<? super T>> implements ArraySort<T> 
                 array[i] = tmp;
             }
         }
-        
+
         int newIndex = index + 1;
         T tmp = array[newIndex];
-        array[newIndex] = array[end];
-        array[end] = tmp;
+        array[newIndex] = array[endPoint];
+        array[endPoint] = tmp;
 
         return  newIndex;
     }
