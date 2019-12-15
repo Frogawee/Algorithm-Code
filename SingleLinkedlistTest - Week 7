@@ -1,0 +1,48 @@
+package linkedList.list;
+
+import arrayGenerator.generator.ArrayGenerator;
+import linkedList.node.SingleLinkNode;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class SingleLinkedListTest<T> {
+
+    SingleLinkedList<String> getStringList() throws ListAccessError {
+        SingleLinkedList<String> list = new SingleLinkedList<>();
+        list.add(0, "Test");
+        list.add(0, "Test1");
+        list.add(0, "Test2");
+        list.add(0, "Test3");
+        return list;
+    }
+
+    @Test
+    void testGettingValue() throws ListAccessError {
+        SingleLinkedList<String> list = getStringList();
+        assertEquals("Test3",  list.get(1));
+    }
+
+    @Test
+    void testGettingValueTwo() throws ListAccessError {
+        SingleLinkedList<String> list = getStringList();
+        assertEquals("Test2",  list.get(2));
+    }
+
+    @Test
+    void testRemovingValueTwo() throws ListAccessError {
+        SingleLinkedList<String> list = getStringList();
+        list.remove(1);
+        assertEquals("Test2",  list.get(1));
+    }
+
+    @Test
+    void addingAtValueTwo() throws ListAccessError {
+        SingleLinkedList<String> list = getStringList();
+        list.add(2, "NewTest");
+        assertEquals("NewTest",  list.get(3));
+    }
+}
