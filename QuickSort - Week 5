@@ -1,18 +1,25 @@
 package arraySorter;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-
 public class QuickSort<T extends Comparable<? super T>> implements ArraySort<T> {
-
+    /**
+     * Sorts an array using the Quick sort algorithm.
+     *
+     * @param array the array to be sorted.
+     * Sends the array through the quickSort function.
+     * @return the sorted array.
+     */
     public T[] sort(T[] array) {
         return quickSort( array,0, array.length -1);
     }
 
+    /**
+     * Starts the Quick Sort process. Starting the partition which then recursively sorts both sides of the partition.
+     *
+     * @param array the array to be sorted.
+     * @param startPoint the starting index for the partition.
+     * @param endPoint the ending index for the partition.
+     * @return the sorted array.
+     */
     T[] quickSort(T[] array, int startPoint, int endPoint) {
         if(startPoint < endPoint) {
             int partition = partition(array, startPoint, endPoint);
@@ -23,6 +30,16 @@ public class QuickSort<T extends Comparable<? super T>> implements ArraySort<T> 
         return  array;
     }
 
+    /**
+     * Sets the Pivot to end point and iterates by creating an index using the starting point.
+     * Compares and swaps values when needed.
+     *
+     * @param array the array to be sorted.
+     * @param startPoint the starting index for the partition.
+     * @param endPoint the ending index for the partition.
+     *
+     * @return the index of the sorting array.
+     */
     int partition(T[] array, int startPoint, int endPoint) {
         T pivot = array[endPoint];
 
