@@ -1,11 +1,14 @@
 package genericMethods;
 
- /**
-    Created by Layla Grinney
- **/
 public class Swap {
 
-    //Swaps the results
+    /**
+     * @param objects is the array of objects.
+     * @param firstValue is the first index we're swapping.
+     * @param lastValue is the last index we're swapping with the first index.
+     * Swaps firstValue with lastValue.
+     * @return the swapped objects.
+     */
     public static <T> T[] swap(T[] objects, int firstValue, int lastValue) throws IndexingError{
         if (Math.max(firstValue, lastValue) <= 0 || Math.max(firstValue, lastValue)> objects.length) {
             throw new IndexingError();
