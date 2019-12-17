@@ -1,10 +1,19 @@
 package arraySorter;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 public class SelectionSort<T extends Comparable<? super T>> implements ArraySort<T> {
 
+    /**
+     * Sorts an array using the Selection Sort algorithm.
+     *
+     * @param array the array to be sorted.
+     *              
+     * Gets searchingIndex and also minIndex by getting the current index in the for loop.
+     * Starts another for loop using the search index starting at the index. And iterating that along.
+     * Once it finds a new minIndex, it'll set minIndex to searchingIndex.
+     * After the whole array has been iterated through, It'll swap the index with the minIndex and carry on the process.
+     *              
+     * @return the sorted array.
+     */
     public T[] sort(T[] array) {
         for (int index = 0; index < array.length - 1; index++) {
             int searchingIndex;
@@ -15,12 +24,10 @@ public class SelectionSort<T extends Comparable<? super T>> implements ArraySort
                     minIndex = searchingIndex;
                 }
             }
-            
             T tmp = array[index];
             array[index] = array[minIndex];
             array[minIndex] = tmp;
         }
-
         return array;
     }
 }
