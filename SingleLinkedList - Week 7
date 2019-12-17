@@ -4,6 +4,14 @@ import linkedList.node.ListNode;
 import linkedList.node.SingleLinkNode;
 
 public class SingleLinkedList<T> extends BasicList<SingleLinkNode<T>,T> implements List<T> {
+
+    /**
+     * @param index the index to add to the linked list.
+     * @param value the value to add to the linked list.
+     * Checks if the root is null, if so sets the root.
+     * Checks through the linked list to find the index.
+     * Once found the correct place in the linked list, it'll add itself between the index and the next link.
+     */
     @Override
     public void add(int index, T value) throws ListAccessError {
         if(getRoot() == null){
@@ -26,26 +34,32 @@ public class SingleLinkedList<T> extends BasicList<SingleLinkNode<T>,T> implemen
             newNode.setNext(current.getNext());
         }
         current.setNext(newNode);
-
     }
 
+    /**
+     * @param index the index to add to the linked list.
+     * Checks if isEmpty or index is less than 0.
+     * Gets current and last.
+     * Iterates through the linked list to find the link to be removed.
+     * Once found it removes the link.
+     */
     @Override
     public T remove(int index) throws ListAccessError {
         if (isEmpty() || index < 0) {
             throw new ListAccessError("Linked List Out Of Range.");
         }
 
-        ListNode<T> current = getRoot();
-        ListNode<T> last = getRoot();
+        SingleLinkNode<T> current = getRoot();
+        SingleLinkNode<T> last = getRoot();
 
         if(index == 0){
-            last = current;
             current = getRoot().getNext();
-            ((SingleLinkNode<T>) current).setNext(getRoot().getNext().getNext());
+            current.setNext(getRoot().getNext().getNext());
             return current.getValue();
         }
 
         while (index > 0 && current.getNext() != null) {
+            last = current;
             current = current.getNext();
             index--;
         }
@@ -54,12 +68,17 @@ public class SingleLinkedList<T> extends BasicList<SingleLinkNode<T>,T> implemen
             throw new ListAccessError("Node Out Of Range.");
         }
 
-        ((SingleLinkNode<T>) last).setNext((SingleLinkNode<T>) current.getNext());
-
+        last.setNext(current.getNext());
 
         return current.getValue();
     }
 
+    /**
+     * @param index the index to add to the linked list.
+     * Checks if isEmpty or index is less than 0.
+     * Iterates till it finds the index
+     * @return the value of current.
+     */
     @Override
     public T get(int index) throws ListAccessError {
         if (isEmpty() || index < 0) {
