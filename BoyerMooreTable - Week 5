@@ -9,10 +9,20 @@ public class BoyerMooreTable {
         value = setValue;
     }
 
+    /**
+     * Gets the letter from the table.
+     *
+     * @return the tables letter.
+     */
     public char getLetter() {
         return letter;
     }
 
+    /**
+     * Gets the value from the table.
+     *
+     * @return the tables value.
+     */
     public int getValue() {
         return value;
     }
