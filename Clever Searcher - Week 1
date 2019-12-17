@@ -8,6 +8,10 @@ public class CleverSearcher extends Searcher {
         super(array, k);
     }
 
+    /**
+     * This creates the kArray and the array.
+     * @return the first index of the sorted array.
+     */
     @java.lang.Override
     public int findElement() throws IndexingError {
         int[] array = getArray();
@@ -16,17 +20,32 @@ public class CleverSearcher extends Searcher {
             throw new IndexingError();
         }
 
-        int[] kArray = setUpArray(k, array);
-        kArray = sortLargest(kArray, 0);
+        int[] kArray;
+        if(k > array.length / 2) {
+            kArray = Arrays.copyOfRange(array,array.length - k, array.length);
+            array = Arrays.copyOfRange(array,0, array.length - k);
+        }
+        else{
+            kArray = setUpArray(k, array);
+            array = Arrays.copyOfRange(array,k, array.length);
+        }
 
-        array = Arrays.copyOfRange(array,k, array.length);
+        kArray = sortLargest(kArray, -1);
+
         for(int i : array){
             kArray = sortLargest(kArray, i);
         }
+
         return kArray[0];
     }
-
-    public int[] setUpArray(int k, int[] array){
+    
+    /**
+     * @param k
+     * @param array
+     * This set up the new array copied from the array param.
+     * @return the created array.
+     */
+    int[] setUpArray(int k, int[] array){
         int[] tempArray = new int[k];
         for(int i = 0; i < k; i++){
             tempArray[i] = array[i];
@@ -34,7 +53,15 @@ public class CleverSearcher extends Searcher {
         return tempArray;
     }
 
-    public int[] sortLargest(int[] kArray, int number){
+
+    /**
+     * @param kArray
+     * @param number
+     * Checks if the first value is less than the number, if so then set number as 0.
+     * It then sorts the kArray.
+     * @return the  kArray.
+     */
+    int[] sortLargest(int[] kArray, int number){
         if(kArray[0] < number){
             kArray[0] = number;
         }
