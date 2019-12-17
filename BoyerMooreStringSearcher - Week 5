@@ -11,8 +11,14 @@ public class BoyerMooreStringSearcher extends StringSearcher {
         super(string);
     }
 
+    /**
+     * @param superString is the superString, this is what we're searching in.
+     * We check through the sub string and add it to a badMatchTable.
+     * We then put it through to compare.
+     * @return the optimal index.
+     */
     @Override
-    public int occursIn(char[] superstring) throws NotFound {
+    public int occursIn(char[] superString) throws NotFound {
         ArrayList<BoyerMooreTable> badMatchTable = new ArrayList<>();
 
         for (int index = 0; index < getString().length; index++) {
@@ -33,9 +39,15 @@ public class BoyerMooreStringSearcher extends StringSearcher {
         BoyerMooreTable entry = new BoyerMooreTable('*', getString().length);
         badMatchTable.add(entry);
 
-        return compare(badMatchTable, superstring);
+        return compare(badMatchTable, superString);
     }
 
+
+    /**
+     * @param badMatchTable is the table the superString will compare to.
+     . Finds and creates the necessary offsets by using compare value
+     * @return the optimal index.
+     */
     public int compare(ArrayList<BoyerMooreTable> badMatchTable, char[] superstring) throws NotFound{
         int offsetIndex = 0;
         int optimalIndex = -1;
@@ -68,7 +80,14 @@ public class BoyerMooreStringSearcher extends StringSearcher {
         throw new NotFound();
     }
 
-    public int compareValue(char i, ArrayList<BoyerMooreTable> badMatchTable){
+
+    /**
+     * @param  i the character we're looking for in the table.
+     * @param badMatchTable stores all values and characters in the substring.
+     * Compares and finds I within the badMatchTable. returns the value.
+     * @return the value from the batMatchTable.
+     */
+     int compareValue(char i, ArrayList<BoyerMooreTable> badMatchTable){
         for(BoyerMooreTable table : badMatchTable){
             if(table.getLetter() == i){
                return table.getValue();
