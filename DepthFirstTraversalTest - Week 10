@@ -4,10 +4,12 @@ import graph.GraphError;
 import graph.DepthFirstTraversal;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class DepthFirstTraversalTest {
@@ -23,6 +25,14 @@ class DepthFirstTraversalTest {
      * successfully does the depth first traversal
      */
     private void testTraversal() throws GraphError {
+        ArrayList<String> testTraversal = new ArrayList<>();
+        testTraversal.add("A");
+        testTraversal.add("B");
+        testTraversal.add("D");
+        testTraversal.add("E");
+        testTraversal.add("F");
+        testTraversal.add("C");
+        
         DepthFirstTraversal<String> traversal = new DepthFirstTraversal<String>();
         traversal.add("A");
         traversal.add("B");
@@ -38,8 +48,8 @@ class DepthFirstTraversalTest {
         traversal.add("D", "F");
         traversal.add("E", "F");
         List<String> testing = traversal.traverse();
-        System.out.println("Results = " + Arrays.toString(testing.toArray()));
-        assertNotNull(traversal.traverse());
+
+        assertEquals(Arrays.toString(testing.toArray()), Arrays.toString(testTraversal.toArray()));
     }
 
     @Test
