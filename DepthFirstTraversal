@@ -1,0 +1,69 @@
+package graph;
+
+import java.util.*;
+
+public class DepthFirstTraversal<T> extends AdjacencyGraph<T> implements Traversal<T>{
+    private List<T> stack = new ArrayList<T>();
+    private List<T> output = new ArrayList<T>();
+
+    @Override
+    public List<T> traverse() throws GraphError {
+        doTraverse();
+        return output;
+    }
+
+    /**
+     * Does the traversal of the list.
+     */
+    public void doTraverse() throws GraphError {
+        T node = getFirstNode();
+
+            while (node != null) {
+                visitNode(node);
+                node = getNext(node);
+                if (node == null && stack.size() > 1) {
+                    node = removeLastStack();
+                }
+            }
+
+    }
+
+    /**
+     * @return the first node;
+     */
+    private T getFirstNode(){
+        return getNodes().stream().findFirst().orElse(null);
+    }
+
+    /**
+     * @param node to get the neighbours of current node in the traversal.
+     * @return the next node depending on the current traversal state.
+     */
+    private T getNext(T node) throws GraphError {
+        for (T member : getNeighbours(node)) {
+            if(!output.contains(member)) {
+                return member;
+            }
+        }
+
+        return  null;
+    }
+
+    /**
+     * @param node node, adds the node to the visit stack and the output</>
+     */
+    private void visitNode(T node){
+        if(!output.contains(node)) {
+            stack.add(node);
+            output.add(node);
+        }
+    }
+    /**
+     * @return the node after the newly removed one.
+     */
+    private T removeLastStack(){
+        T element = stack.get(stack.size() - 1);
+        stack.remove(element);
+        return stack.get(stack.size() - 1);
+    }
+}
