@@ -1,0 +1,47 @@
+package graph;
+
+import java.util.*;
+
+public class DepthFirstTopologicalSort<T> extends AdjacencyGraph<T> implements TopologicalSort<T> {
+    private List<T> stack = new ArrayList<T>();
+    private List<T> visiting = new ArrayList<T>();
+
+    /**
+     * Start the sort.
+     * @return stack.
+     */
+    @Override
+    public List<T> getSort() throws GraphError {
+        stack.clear();
+
+        for (T node: getNodes()) {
+            if (!stack.contains(node) && !visiting.contains(node)) {
+                visitNode(node);
+            }
+        }
+
+        Collections.reverse(stack);
+        return stack;
+    }
+
+    /**
+     * @param node current visiting node being pushed to the front of a list.
+     **/
+    private void pushNode(T node){
+        stack.add(0, node);
+    }
+
+    /**
+     * @param node current visiting node
+     */
+    private void visitNode(T node) throws GraphError {
+        visiting.add(node);
+
+        for (T neighbour: getNeighbours(node)) {
+            visitNode(neighbour);
+        }
+
+        pushNode(node);
+        visiting.remove(node);
+    }
+}
