@@ -1,0 +1,50 @@
+package Test;
+
+import graph.GraphError;
+import graph.DepthFirstTraversal;
+
+import org.junit.jupiter.api.Test;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+
+class DepthFirstTraversalTest {
+
+    /**
+     * Create a searcher of the right type
+     */
+    //abstract protected Searcher createSearcher(int[] array, int index) throws IndexingError;
+
+    /**
+     * Creats an array
+     * Prints the output so we can see the results
+     * successfully does the depth first traversal
+     */
+    private void testTraversal() throws GraphError {
+        DepthFirstTraversal<String> traversal = new DepthFirstTraversal<String>();
+        traversal.add("A");
+        traversal.add("B");
+        traversal.add("C");
+        traversal.add("D");
+        traversal.add("E");
+        traversal.add("F");
+        traversal.add("A", "B");
+        traversal.add("A", "C");
+        traversal.add("B", "E");
+        traversal.add("B", "D");
+        traversal.add("D", "E");
+        traversal.add("D", "F");
+        traversal.add("E", "F");
+        List<String> testing = traversal.traverse();
+        System.out.println("Results = " + Arrays.toString(testing.toArray()));
+        assertNotNull(traversal.traverse());
+    }
+
+    @Test
+    void testingTraversal() throws GraphError {
+        testTraversal();
+    }
+
+}
