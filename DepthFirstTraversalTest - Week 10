@@ -13,12 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class DepthFirstTraversalTest {
-
-    /**
-     * Create a searcher of the right type
-     */
-    //abstract protected Searcher createSearcher(int[] array, int index) throws IndexingError;
-
     /**
      * Creats an array
      * Prints the output so we can see the results
