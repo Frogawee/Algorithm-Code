@@ -1,0 +1,12 @@
+    /**
+     * The run implementation. 
+     */
+    public void run() {
+        traceOn();
+        startCount();
+        while (!isCountFinished()){
+            stepCount();
+        }
+
+        endCount();
+    }
