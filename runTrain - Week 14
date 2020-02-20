@@ -1,0 +1,15 @@
+public void runTrain() throws RailwaySystemError {
+		Clock clock = getRailwaySystem().getClock();
+		Railway nextRailway = getRailwaySystem().getNextRailway(this);
+		while (!clock.timeOut()) {
+			choochoo();
+			getBasket().putStone();
+			while (nextRailway.getBasket().hasStone()){
+				getBasket().takeStone();
+				siesta();
+				getBasket().putStone();
+			}
+			crossPass();
+			getBasket().takeStone();
+		}
+	}
