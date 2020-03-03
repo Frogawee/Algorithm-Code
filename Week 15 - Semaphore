@@ -1,0 +1,58 @@
+package semaphore;
+
+public class AbsorbSemaphore implements SemaphoreInterface {
+    private String name;
+    private int limit;
+    private int value;
+
+    /**
+     * @param name set the name of the semaphore
+     * @param limit the limit of the semaphore
+     * @param value the value of the semaphore
+     */
+    public AbsorbSemaphore(String name, int value,int limit) {
+        this.name = name;
+        this.limit = limit;
+        this.value = value;
+    }
+
+    public AbsorbSemaphore(String name,int value) {
+        this(name, value, Integer.MAX_VALUE);
+    }
+
+    /**
+     * Take away 1 from the current value.
+     */
+    @Override
+    public synchronized void poll() throws InterruptedException {
+        value -= 1;
+        if(value < 0){
+            wait();
+        }
+        if(value >= limit){
+            notify();
+        }
+    }
+
+    /**
+     * If value is not at its limit, add one 1 to the value.
+     */
+    @Override
+    public synchronized void vote() {
+        if (value < limit){
+            value+=1;
+        }
+        if (value <=0){
+            notify();
+        }
+    }
+
+
+    /**
+     * @return the name of our semaphore.
+     */
+    @Override
+    public String getName() {
+        return name;
+    }
+}
